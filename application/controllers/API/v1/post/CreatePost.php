@@ -170,7 +170,7 @@ class CreatePost extends REST_Controller
                     $this->response(array(
                         "status" => DATA_SAVE,
                         "message" => DATA_SAVE_MESSAGE,
-                        "postId"=> $gallaryfile
+                        "postId"=> $postId
                     ), REST_Controller::HTTP_OK);
                 } else {
                     $this->response(array(
