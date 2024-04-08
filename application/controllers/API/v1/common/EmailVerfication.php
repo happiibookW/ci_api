@@ -15,7 +15,7 @@ class EmailVerification extends REST_Controller
 
     public function index_post()
     {
-
+		
         try {
             $email = $this->input->post('email');
             if ( $email != ""  ) {
