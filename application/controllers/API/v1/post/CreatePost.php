@@ -197,7 +197,7 @@ class CreatePost extends REST_Controller
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => 'http://18.117.21.112/public/api/upload',
+				CURLOPT_URL => 'http://18.117.21.112/hapiverse/public/api/upload',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
