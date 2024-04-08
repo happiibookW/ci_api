@@ -197,15 +197,15 @@ class CreatePost extends REST_Controller
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://127.0.0.1:8000/api/upload',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS => array('image'=> new CURLFILE('http://192.168.1.17/public/'.$image)),
+				CURLOPT_URL => 'http://18.117.21.112/public/api/upload',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('image'=> new CURLFILE('http://18.117.21.112/ci_api/public/'.$image)),
 			
 			));
 
