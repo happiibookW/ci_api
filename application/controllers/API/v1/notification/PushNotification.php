@@ -102,8 +102,9 @@ class PushNotification extends REST_Controller
             // 'data' => $datapayload,
             "priority" => "high",
         );
+		$token = $this->config->item('MAP_API_KEY');
         $headers = array(
-            'Authorization:key=AAAAzrdi-rU:APA91bHI5gkJ8rk86kuarso26RwIlRaQcNRUU9ND-Zd5Zzda7tH4TzMB0sPttx5XhrS643TwyMUD4gGXBrcwZ4VKwFydRl02z2w8tRogAz01e2LKJzijjWlF-hfdvOA1431fAR-9299Q',
+            'Authorization:key='.$token.'',
             'Content-Type: application/json'
         );
         $ch = curl_init();

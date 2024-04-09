@@ -2056,7 +2056,7 @@
             </div>
         </div>
         <!-- Google places Lib -->
-        <script src="https://maps.google.com/maps/api/js?key=AIzaSyAGLO_M5VT7BsVdjMjciKoH1fFJWWdhDPU&amp;libraries=places"></script>
+        <script src="https://maps.google.com/maps/api/js?key=<?php echo $this->config->item('MAP_API_KEY');?>&amp;libraries=places"></script>
     </div>
 
     <div class="chat-wrapper">

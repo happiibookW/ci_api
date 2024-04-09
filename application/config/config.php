@@ -526,3 +526,7 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+$config['MAP_API_KEY'] = 'AIzaSyAGLO_M5VT7BsVdjMjciKoH1fFJWWdhDPU';
+$config['fcm_auth_token'] = 'AAAAzrdi-rU:APA91bHI5gkJ8rk86kuarso26RwIlRaQcNRUU9ND-Zd5Zzda7tH4TzMB0sPttx5XhrS643TwyMUD4gGXBrcwZ4VKwFydRl02z2w8tRogAz01e2LKJzijjWlF-hfdvOA1431fAR-9299Q';
+$config['stripe_key']='sk_test_51C7h1TACrbcTjoAng8EPmzp7FRUDllEWjElKdmJI2QajxwKa7ztwNZj6fuGe8hxzrEs4caO2k9jM8aF8EfQxiU2U00ONrZcNSr';

@@ -32,7 +32,7 @@ class PayWithStripe extends REST_Controller
                 $cvc=$this->input->post("cvc");
                 $token=$this->input->post("token");
                 $customer = '1';
-                $apiKey="sk_test_51C7h1TACrbcTjoAng8EPmzp7FRUDllEWjElKdmJI2QajxwKa7ztwNZj6fuGe8hxzrEs4caO2k9jM8aF8EfQxiU2U00ONrZcNSr";
+                $apiKey= $this->config->item('stripe_key');
 
                 $curl = curl_init();
 curl_setopt_array($curl, [

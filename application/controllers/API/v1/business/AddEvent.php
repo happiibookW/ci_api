@@ -41,7 +41,7 @@ class AddEvent extends REST_Controller
                     "latitude"=>$latitude,
                     "longitude"=>$longitude,
                     "address"=>$address,
-                    );
+				);
                     
                 if ($this->BusinessModel->insertEvent($eventData, "mstevent") == true) {
 					
