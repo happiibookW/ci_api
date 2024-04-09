@@ -425,6 +425,18 @@ class PostModel extends CI_Model
      ->join('mstuser as t2', 't1.userId = t2.userId', 'LEFT')
      ->get()->result_array();
      }
+
+	 public function get_user($compare){
+
+		$this->db->where($compare); // Apply the condition
+		$query = $this->db->get('mstuser'); // Use the correct table name
+	
+		if ($query->num_rows() > 0) {
+			return true; // User exists
+		} else {
+			return false; // User does not exist
+		}
+	 }
      // fetch my story
      public function fetchStoryMy($compare){
 		$this->db->where($compare);
@@ -449,7 +461,7 @@ class PostModel extends CI_Model
 	   
 		$isposted= $this->alreadyExists($checkpost,'mstpost');
 		   
-		if(!empty($userdata) && $isposted == true){
+		if(!empty($userdata) && $isposted ){
 		   
 		   $returnData['userId']=($userdata['userId']) ? $userdata['userId'] : $userdata['businessId'];
 		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
