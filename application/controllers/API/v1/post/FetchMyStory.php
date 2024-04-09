@@ -27,14 +27,26 @@ class FetchMyStory extends REST_Controller
 
     public function index_post()
     {
-
+		
         try {
-           
-                $userId=$this->input->post("userId");
-                if($userId!=""){
-                    $compare=array(
-                        "userId"=>$userId,
-                        );
+		
+			$userId=$this->input->post("userId");
+			$postdata = [];
+			if($userId!=""){
+				$compare=array(
+						"userId"=>$userId,
+				);
+			$isUserExists = $this->PostModel->get_user($compare);
+			if($isUserExists){
+				$compare=array(
+					"userId"=>$userId,
+				);
+			}else{
+				$compare=array(
+					"businessId"=>$userId,
+				);
+			}
+			
                 $postdata = $this->PostModel->fetchStoryMy($compare);
                 if ($postdata != "" && !empty($postdata)) {
                     $this->response(array(

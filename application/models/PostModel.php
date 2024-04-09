@@ -427,22 +427,36 @@ class PostModel extends CI_Model
      }
      // fetch my story
      public function fetchStoryMy($compare){
-         $this->db->where($compare);
-         $userdata=$this->db->get("mstuser")->row_array();
-         $returnData=array();
-         $checkpost=array(
-             "userId"=>$compare['userId'],
-             "content_type"=>"story",
-             );
-			$isposted=$this->alreadyExists($checkpost,'mstpost');
-         if(!empty($userdata) && $isposted==true){
-            
-            $returnData['userId']=$userdata['userId'];
-            $returnData['userName']=$userdata['userName'];
-            $returnData['profileImageUrl']=$userdata['profileImageUrl'];
-            $returnData['storyItem']=$this->fetchstorypostforuser($userdata['userId']);
-         }
-         return $returnData;
+		$this->db->where($compare);
+		
+		if($compare['userId']){
+		   
+		   $userdata=$this->db->get("mstuser")->row_array();
+		   $checkpost=array(
+			   "userId"=>($compare['userId']),
+			   "content_type"=>"story",
+		   );
+		}else{
+		   $checkpost=array(
+			   "userId"=>($compare['businessId']),
+			   "content_type"=>"story",
+			   );
+		   $userdata=$this->db->get("mstbusiness")->row_array();
+		   
+		}
+		
+		$returnData=array();
+	   
+		$isposted= $this->alreadyExists($checkpost,'mstpost');
+		   
+		if(!empty($userdata) && $isposted == true){
+		   
+		   $returnData['userId']=($userdata['userId']) ? $userdata['userId'] : $userdata['businessId'];
+		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
+		   $returnData['profileImageUrl']=($userdata['profileImageUrl']) ? $userdata['profileImageUrl'] : $userdata['featureImageUrl'];
+		   $returnData['storyItem']=$this->fetchstorypostforuser($returnData['userId']);
+		}
+		return $returnData;
      }
      
      public function fetchpostcomment($compare){
