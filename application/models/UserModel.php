@@ -328,27 +328,27 @@ class UserModel extends CI_Model
 		}, $friends));
 		
 		$get_user = $this->db->select('*')
-            ->from('mstuser')
-            ->where('userId',$userId)
-            ->get()->result_array();
-		if(!empty($get_user)){
-			$userlist = $this->db->query("SELECT userId,userName,profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
-			* COS( RADIANS( m.lat ) )
-			* COS( RADIANS( m.long ) - RADIANS( $long ) )
-			+ SIN( RADIANS( $lat  ) )
-			* SIN( RADIANS( m.lat ) )
-			)
-			* 6371
-			) AS distance
+			->from('mstuser')
+			->where('userId', $userId)
+			->get()->result_array();
 
-				FROM mstuser  AS m where userId!='$userId'
-				AND userId NOT IN ($friendIdList)
-				having distance <= 100
-				ORDER BY distance limit 10;"
+		if (!empty($get_user)) {
+			$userlist = $this->db->query("SELECT userId, userName, profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
+				* COS( RADIANS( m.lat ) )
+				* COS( RADIANS( m.long ) - RADIANS( $long ) )
+				+ SIN( RADIANS( $lat  ) )
+				* SIN( RADIANS( m.lat ) )
+				)
+				* 6371
+				) AS distance
+				FROM mstuser AS m WHERE userId != '$userId' " . 
+				(!empty($friendIdList) ? "AND userId NOT IN ($friendIdList)" : "") . "
+				HAVING distance <= 100
+				ORDER BY distance LIMIT 10;"
 			)->result_array();
-		}else{
-			if(!empty($friendIdList)){
-				$userlist = $this->db->query("SELECT businessId as userId, businessName as userName, featureImageUrl as profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
+		} else {
+			$queryCondition = (!empty($friendIdList) ? "AND businessId NOT IN ($friendIdList)" : "");
+			$userlist = $this->db->query("SELECT businessId AS userId, businessName AS userName, featureImageUrl AS profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
 				* COS( RADIANS( m.latitude ) )
 				* COS( RADIANS( m.longitude ) - RADIANS( $long ) )
 				+ SIN( RADIANS( $lat  ) )
@@ -356,28 +356,12 @@ class UserModel extends CI_Model
 				)
 				* 6371
 				) AS distance
-	
-					FROM mstbusiness AS m where businessId!='$userId'
-					AND businessId NOT IN ($friendIdList)
-					having distance <= 100
-					ORDER BY distance limit 10;"
-				)->result_array();
-			}else{
-				$userlist = $this->db->query("SELECT businessId as userId, businessName as userName, featureImageUrl as profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
-				* COS( RADIANS( m.latitude ) )
-				* COS( RADIANS( m.longitude ) - RADIANS( $long ) )
-				+ SIN( RADIANS( $lat  ) )
-				* SIN( RADIANS( m.latitude ) )
-				)
-				* 6371
-				) AS distance
-					FROM mstbusiness AS m where businessId!='$userId'
-					having distance <= 100
-					ORDER BY distance limit 10;"
-				)->result_array();
-			}
-			
+				FROM mstbusiness AS m WHERE businessId != '$userId' $queryCondition
+				HAVING distance <= 100
+				ORDER BY distance LIMIT 10;"
+			)->result_array();
 		}
+
 
 		
 		return $userlist;
