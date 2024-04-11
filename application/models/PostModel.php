@@ -172,15 +172,19 @@ class PostModel extends CI_Model
 		$uni_friendList = array_unique($friendlistIds);
 
 		$query = $this->db->select("*")
-        ->from("mstpost")
-        ->group_start()
-            ->where('privacy', 'Public') 
-            ->or_group_start() 
-                ->where('privacy', 'Private') 
-                ->where('userId', $userId) 
-            ->group_end()
-        ->group_end()
-        ->where_in('userId', $uni_friendList); 
+			->from("mstpost")
+			->group_start()
+				->where('privacy', 'Public')
+				->or_group_start()
+					->where('privacy', 'Private')
+					->where('userId', $userId)
+				->group_end()
+			->group_end();
+
+		if (!empty($friendlistIds)) {
+			$query->where_in('userId', array_unique($friendlistIds));
+		}
+		
 
 		if (!empty($followerIds)) {
 			$query->or_where_in('userId', $followerIds);
