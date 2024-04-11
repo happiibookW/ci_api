@@ -29,6 +29,13 @@ class CreateGroup extends REST_Controller
     {
 
         try {
+			$upload_path = 'public/groupdoc/';
+			if (!is_dir($upload_path )) {
+				if (!mkdir($upload_path , 0777, true)) {
+					echo "Failed to create year directory";
+					exit;
+				}
+			}
             $userId = $this->input->post('userId');
             $groupName = $this->input->post('groupName');
             $groupPrivacy = $this->input->post('groupPrivacy');
@@ -39,7 +46,7 @@ class CreateGroup extends REST_Controller
                 );
                 if ($this->GroupModel->alreadyExists($verify, 'mstgroup') == false) {
                 $upload = array(
-                    "upload_path" => "public/groupdoc/",
+                    "upload_path" => $upload_path,
                     "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV",
                     "max_size" => 100000,
                     "encrypt_name" => TRUE
