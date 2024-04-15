@@ -130,7 +130,7 @@ class UserModel extends CI_Model
             $finalData['email'] = $users['email'];
             $finalData['DOB'] = $users['DOB'];
             $finalData['martialStatus'] = $users['martialStatus'];
-            $finalData['profileImageUrl'] = $users['profileImageUrl'];
+            $finalData['profileImageUrl'] = 'http://18.117.21.112/hapiverse/'.$users['profileImageUrl'];
             $finalData['gender'] = $users['gender'];
             $finalData['city'] = $users['city'];
             $finalData['postCode'] = $users['postCode'];
