@@ -386,7 +386,7 @@ class PostModel extends CI_Model
             if($myId != $postdata['userId']){
             $returnData[$i]['userId']=$postdata['userId'];
             $returnData[$i]['userName']=$postdata['userName'];
-            $returnData[$i]['profileImageUrl']=$postdata['profileImageUrl'];
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($postdata['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$postdata['profileImageUrl'] : site_url('public/'.$postdata['profileImageUrl']);
             $returnData[$i]['storyItem']=$this->fetchstorypostforuser($postdata['userId']);
           $i++;
         }
