@@ -64,8 +64,8 @@ class BusinessModel extends CI_Model
             $finalData['businessName']=$users['businessName'];
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
-            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
-            $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
+            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
             $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
             $finalData['city']=$users['city'];
             $finalData['businessContact']=$users['businessContact'];
@@ -107,9 +107,9 @@ class BusinessModel extends CI_Model
         }
         return  $finalData;
     }
-	public function checkFileInLaravel($image) {
-
-		$laravelEndpoint = 'http://127.0.0.1:8000/check-file';
+	public function checkFileInLaravel($image)
+	{
+		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
@@ -118,7 +118,7 @@ class BusinessModel extends CI_Model
 		} else {
 			return false;
 		}
-    }
+	}
     // check already friend
     public function checkfollowing($compare){
         $this->db->where($compare);
