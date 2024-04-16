@@ -350,7 +350,7 @@ class PostModel extends CI_Model
             $returnData[$i]['expire_at']=$postdata['expire_at'];
             $returnData[$i]['interest']=$postdata['interest'];
             $returnData[$i]['active']=$postdata['active'];
-            $returnData[$i]['profileImageUrl']=$userInfo['profileImageUrl'];
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             $returnData[$i]['location']=$postdata['location'];
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
@@ -415,7 +415,7 @@ class PostModel extends CI_Model
             $returnData[$i]['interest']=$postdata['interest'];
             $returnData[$i]['active']=$postdata['active'];
             $returnData[$i]['profileName']=$postdata['profileName'];
-            $returnData[$i]['profileImageUrl']=$postdata['profileImageUrl'];
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($postdata['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$postdata['profileImageUrl'] : site_url('public/'.$postdata['profileImageUrl']);
             $returnData[$i]['location']=$postdata['location'];
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
@@ -438,6 +438,7 @@ class PostModel extends CI_Model
         }
           return $returnData;
      }
+	 
      public function fetchStoryViews($compare){
           return  $this->db->select('t1.*, t2.userName,t2.profileImageUrl')
      ->from('trnpoststoryview as t1')
