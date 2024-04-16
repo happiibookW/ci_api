@@ -376,8 +376,16 @@ class UserModel extends CI_Model
 			)->result_array();
 		}
 
+		foreach ($userlist as &$user) {
+			$user['profileImageUrl'] = $this->getProfileImageUrl($user['profileImageUrl']);
+		}
 		return $userlist;
     }
+
+	public function getProfileImageUrl($imageUrl)
+	{
+		return ($this->checkFileInLaravel($imageUrl)) ? 'http://18.117.21.112/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
+	}
     public function insertOrder($data,$table){
         return $this->db->insert($table,$data);
     }
