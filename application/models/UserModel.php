@@ -362,7 +362,7 @@ class UserModel extends CI_Model
 			)->result_array();
 		} else {
 			$queryCondition = (!empty($friendIdList) ? "AND businessId NOT IN ($friendIdList)" : "");
-			$userlist = $this->db->query("SELECT businessId AS userId, businessName AS userName, featureImageUrl AS profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
+			$userlist = $this->db->query("SELECT businessId AS userId, businessName AS userName, logoImageUrl AS profileImageUrl, (ACOS( COS( RADIANS( $lat  ) ) 
 				* COS( RADIANS( m.latitude ) )
 				* COS( RADIANS( m.longitude ) - RADIANS( $long ) )
 				+ SIN( RADIANS( $lat  ) )

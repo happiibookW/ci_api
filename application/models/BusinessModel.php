@@ -65,7 +65,7 @@ class BusinessModel extends CI_Model
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
             $finalData['featureImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
-            $finalData['logoImageUrl']=$users['logoImageUrl'];
+            $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
             $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
             $finalData['city']=$users['city'];
             $finalData['businessContact']=$users['businessContact'];
