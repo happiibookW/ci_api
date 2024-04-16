@@ -13,16 +13,16 @@ class FetchUserProfile extends REST_Controller
         parent::__construct();
         $this->load->model('UserModel');
         $this->load->model('AppModel');
-        $haveAccess = array(
-            'userId' => $this->input->get_request_header('userId'),
-            'token' => $this->input->get_request_header('token'),
-        );
-        if ($this->AppModel->haveaccess($haveAccess) == false) {
-            $this->response(array(
-                "status" => UNAUTHORIZED,
-                "message" => UNAUTHORIZED_MESSAGE
-            ), REST_Controller::HTTP_UNAUTHORIZED);
-        }
+        // $haveAccess = array(
+        //     'userId' => $this->input->get_request_header('userId'),
+        //     // 'token' => $this->input->get_request_header('token'),
+        // );
+        // if ($this->AppModel->haveaccess($haveAccess) == false) {
+        //     $this->response(array(
+        //         "status" => UNAUTHORIZED,
+        //         "message" => UNAUTHORIZED_MESSAGE
+        //     ), REST_Controller::HTTP_UNAUTHORIZED);
+        // }
          header("Access-Control-Allow-Origin: *");
          header('Access-Control-Allow-Methods: GET, POST');
          header("Access-Control-Allow-Headers: *");

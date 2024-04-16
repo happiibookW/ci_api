@@ -15,7 +15,7 @@ class SendRequest extends REST_Controller
         $this->load->model('FriendRequestModel');
         $haveAccess = array(
             'userId' => $this->input->get_request_header('userId'),
-            'token' => $this->input->get_request_header('token'),
+            // 'token' => $this->input->get_request_header('token'),
         );
         if ($this->AppModel->haveaccess($haveAccess) == false) {
             $this->response(array(

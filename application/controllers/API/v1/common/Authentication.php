@@ -21,6 +21,7 @@ class Authentication extends REST_Controller
     {
 		
         try {
+
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             $deviceUUID = $this->input->post('deviceUUID');
