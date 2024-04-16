@@ -401,6 +401,7 @@ class PostModel extends CI_Model
 			$returnData=array();
           $i=0;
         foreach($post as $postdata){
+			$userInfo = $this->fetchUserDetail($postdata['userId']);
             $returnData[$i]['postId']=$postdata['postId'];
             $returnData[$i]['userId']=$postdata['userId'];
             $returnData[$i]['caption']=$postdata['caption'];
@@ -415,7 +416,7 @@ class PostModel extends CI_Model
             $returnData[$i]['interest']=$postdata['interest'];
             $returnData[$i]['active']=$postdata['active'];
             $returnData[$i]['profileName']=$postdata['profileName'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($postdata['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$postdata['profileImageUrl'] : site_url('public/'.$postdata['profileImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             $returnData[$i]['location']=$postdata['location'];
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
@@ -486,7 +487,14 @@ class PostModel extends CI_Model
 		   
 		   $returnData['userId']=($userdata['userId']) ? $userdata['userId'] : $userdata['businessId'];
 		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
-		   $returnData['profileImageUrl']=($userdata['profileImageUrl']) ? $userdata['profileImageUrl'] : $userdata['logoImageUrl'];
+		   $returnData['profileImageUrl'] = ($userdata['profileImageUrl']) ?
+		   (($this->checkFileInLaravel($userdata['profileImageUrl'])) ?
+			   'http://18.117.21.112/hapiverse/public/' . $userdata['profileImageUrl'] :
+			   site_url('public/' . $userdata['profileImageUrl'])) :
+		   (($this->checkFileInLaravel($userdata['logoImageUrl'])) ?
+			   'http://18.117.21.112/hapiverse/public/' . $userdata['logoImageUrl'] :
+			   site_url('public/' . $userdata['logoImageUrl']));
+	   
 		   $returnData['storyItem']=$this->fetchstorypostforuser($returnData['userId']);
 		}
 		return $returnData;
