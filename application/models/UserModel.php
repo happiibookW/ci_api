@@ -376,8 +376,6 @@ class UserModel extends CI_Model
 			)->result_array();
 		}
 
-
-		$userlist['profileImageUrl'] = ($this->checkFileInLaravel($userlist['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userlist['profileImageUrl'] : site_url('public/'.$userlist['profileImageUrl']);
 		return $userlist;
     }
     public function insertOrder($data,$table){

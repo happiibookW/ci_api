@@ -11,13 +11,36 @@ class NotificationModel extends CI_Model
     }
     public function fetchnotification( $compare = null)
     {
-       return $this->db->select('t1.*, t2.userName, t2.profileImageUrl')
-     ->from('mstnotification as t1')
-     ->where($compare)
-     ->join('mstuser as t2', 't1.senderId = t2.userId', 'LEFT')
-     ->order_by("t1.addDate","desc")
-     ->get()->result_array();
+		$notifications = $this->db->select('t1.*, t2.userName, t2.profileImageUrl')
+        ->from('mstnotification as t1')
+        ->where($compare)
+        ->join('mstuser as t2', 't1.senderId = t2.userId', 'LEFT')
+        ->order_by("t1.addDate", "desc")
+        ->get()->result_array();
+
+		foreach ($notifications as &$notification) {
+			$notification['profileImageUrl'] = $this->getProfileImageUrl($notification['profileImageUrl']);
+		}
+
+    return $notifications;
     }
+	public function getProfileImageUrl($imageUrl)
+	{
+		return ($this->checkFileInLaravel($imageUrl)) ? 'http://18.117.21.112/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
+	}
+
+	public function checkFileInLaravel($image)
+	{
+		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$filePath = $image;
+		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
+		$response = file_get_contents($url);
+		if ($response === '{"status":"exists"}') {
+			return true;
+		} else {
+			return false;
+		}
+	}
     public function fetchToken($receiverId){
         $this->db->where('userId',$receiverId);
         return $this->db->get('mstdevicedata')->result_array();

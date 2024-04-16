@@ -35,7 +35,7 @@ class FetchNotification extends REST_Controller
                     "receiverId" => $userId,
                 );
                 $notificationdata = $this->NotificationModel->fetchnotification($data);
-				$notificationdata['profileImageUrl'] = ($this->checkFileInLaravel($notificationdata['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$notificationdata['profileImageUrl'] : site_url('public/'.$notificationdata['profileImageUrl']);
+				
                 if ($notificationdata != "") {
                     $this->response(array(
                         "status" => DATA_AVAILABLE,
@@ -60,18 +60,7 @@ class FetchNotification extends REST_Controller
         }
     }
 
-	public function checkFileInLaravel($image) {
-
-		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
-		$filePath = $image;
-		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
-		$response = file_get_contents($url);
-		if ($response === '{"status":"exists"}') {
-			return true;
-		} else {
-			return false;
-		}
-    }
+	
 }
 
 ?>
