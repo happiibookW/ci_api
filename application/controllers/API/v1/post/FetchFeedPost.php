@@ -62,6 +62,8 @@ class FetchFeedPost extends REST_Controller
             echo 'Message: ' . $e->getMessage();
         }
     }
+
+	
 }
 
 ?>

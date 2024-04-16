@@ -207,7 +207,7 @@ class PostModel extends CI_Model
             $returnData[$i]['userId']=$postdata['userId'];
             if($userInfo["isBusiness"]==false){
             $returnData[$i]['userName']=$userInfo['userName'];
-            $returnData[$i]['profileImageUrl']=$userInfo['profileImageUrl'];
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             }else{
                  $returnData[$i]['userName']=$userInfo['businessName'];
             $returnData[$i]['profileImageUrl']=$userInfo['logoImageUrl'];
@@ -273,6 +273,20 @@ class PostModel extends CI_Model
         }
         return $returnData;
      }
+
+	public function checkFileInLaravel($image) {
+
+		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$filePath = $image;
+		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
+		$response = file_get_contents($url);
+		if ($response === '{"status":"exists"}') {
+			return true;
+		} else {
+			return false;
+		}
+    }
+
      public function fetchUserDetail($userId){
          $this->db->where("userId",$userId);
          $data=$this->db->get("mstuser")->row_array();
