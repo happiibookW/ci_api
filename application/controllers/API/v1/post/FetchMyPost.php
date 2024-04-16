@@ -13,7 +13,7 @@ class FetchMyPost extends REST_Controller
         parent::__construct();
         $this->load->model('PostModel');
         $this->load->model('AppModel');
-        $haveAccess = array(
+        $haveAccess = array( 
             'userId' => $this->input->get_request_header('userId'),
             // 'token' => $this->input->get_request_header('token'),
         );
