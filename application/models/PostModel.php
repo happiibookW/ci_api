@@ -198,6 +198,7 @@ class PostModel extends CI_Model
 		$returnData=array();
 		$i=0;
         foreach($result as $postdata){
+			
 
             // if($userId != $postdata['userId']){
             // if($postdata['privacy'] != 'Private' && in_array($postdata['userId'],$followerIds)){
@@ -211,6 +212,7 @@ class PostModel extends CI_Model
             }else{
                  $returnData[$i]['userName']=$userInfo['businessName'];
             $returnData[$i]['profileImageUrl']=$userInfo['logoImageUrl'];
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['logoImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['logoImageUrl'] : site_url('public/'.$userInfo['logoImageUrl']);
             }
             if($postdata['groupId']!=""){
                 // $groupInfo = $this->fetchGroupDetail($postdata['groupId']);

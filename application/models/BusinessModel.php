@@ -64,7 +64,7 @@ class BusinessModel extends CI_Model
             $finalData['businessName']=$users['businessName'];
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
-            $finalData['featureImageUrl']=$users['featureImageUrl'];
+            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
             $finalData['logoImageUrl']=$users['logoImageUrl'];
             $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
             $finalData['city']=$users['city'];
@@ -106,6 +106,18 @@ class BusinessModel extends CI_Model
             }
         }
         return  $finalData;
+    }
+	public function checkFileInLaravel($image) {
+
+		$laravelEndpoint = 'http://127.0.0.1:8000/check-file';
+		$filePath = $image;
+		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
+		$response = file_get_contents($url);
+		if ($response === '{"status":"exists"}') {
+			return true;
+		} else {
+			return false;
+		}
     }
     // check already friend
     public function checkfollowing($compare){
