@@ -486,7 +486,7 @@ class PostModel extends CI_Model
 		   
 		   $returnData['userId']=($userdata['userId']) ? $userdata['userId'] : $userdata['businessId'];
 		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
-		   $returnData['profileImageUrl']=($userdata['profileImageUrl']) ? $userdata['profileImageUrl'] : $userdata['featureImageUrl'];
+		   $returnData['profileImageUrl']=($userdata['profileImageUrl']) ? $userdata['profileImageUrl'] : $userdata['logoImageUrl'];
 		   $returnData['storyItem']=$this->fetchstorypostforuser($returnData['userId']);
 		}
 		return $returnData;
