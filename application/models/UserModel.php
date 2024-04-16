@@ -32,12 +32,18 @@ class UserModel extends CI_Model
         $friend=$this->db->query("SELECT userId FROM `trnfollowerfollowing`  WHERE userId IN (SELECT userId FROM `trnfollowerfollowing`  WHERE followerId='$myId' ) AND userId IN (SELECT followerId FROM `trnfollowerfollowing`  WHERE userId='$myId') ")->result_array();
         $stid=array();
         foreach($friend as $stds_id) {
-        $stid[] = $stds_id['userId'];
-           }
-           if(!empty($stid)){
-         return $this->db->select("userId,profileImageUrl,userName")->from("mstuser")->where_in('userId',$stid)->get()->result_array();
-           }
+        	$stid[] = $stds_id['userId'];
+		}
+		if(!empty($stid)){
+			$userlist =  $this->db->select("userId,profileImageUrl,userName")->from("mstuser")->where_in('userId',$stid)->get()->result_array();
+
+		 foreach ($userlist as &$user) {
+			$user['profileImageUrl'] = $this->getProfileImageUrl($user['profileImageUrl']);
+		}
+		return $userlist;
+		}
     }
+	
     // fetch friends for group invitation 
     public function fetchfriendgroup($data){
         $myId=$data['userId'];
