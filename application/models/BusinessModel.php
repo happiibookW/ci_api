@@ -64,7 +64,7 @@ class BusinessModel extends CI_Model
             $finalData['businessName']=$users['businessName'];
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
-            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['featureImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['featureImageUrl'] : site_url('public/'.$users['featureImageUrl']);
             $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
             $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
             $finalData['city']=$users['city'];
