@@ -12,6 +12,7 @@ class ForgotPassword extends REST_Controller
 
         parent::__construct();
         $this->load->model('AuthenticationModel');
+		$this->load->library('email');
     }
 
     public function index_post()
@@ -35,10 +36,39 @@ class ForgotPassword extends REST_Controller
                         "message" => NOT_EXIST_MESSAGE,
                     ), REST_Controller::HTTP_OK);
                 } else {
-                    $this->response(array(
-                        "status" => MAIL_SENT,
-                        "message" => MAIL_SENT_MESSAGE,
-                    ), REST_Controller::HTTP_OK);
+					
+					$message="Your verification code is: ".$verificationCode;
+					$config['protocol'] = 'smtp';
+					$config['smtp_host'] = 'smtp.gmail.com';
+					$config['smtp_user'] = 'abhimanyu.geektech@gmail.com';
+					$config['smtp_pass'] = 'mtkloecutdwlkzgz';
+					$config['smtp_port'] = 587;
+					$config['smtp_crypto'] = 'tls';
+					$config['charset'] = 'utf-8';
+					$config['mailtype'] = 'html';
+					$config['newline'] = "\r\n";
+			
+					$this->email->initialize($config);
+			
+					// Set email parameters
+					$this->email->from('abhimanyu.geektech@gmail.com', 'Your Name');
+					$this->email->to($email);
+					$this->email->subject('Verfication Code By Happiverse');
+					$this->email->message($message);
+			
+					// Send email
+					if ($this->email->send()) {
+						$this->response(array(
+							"status" => MAIL_SENT,
+							"message" => MAIL_SENT_MESSAGE,
+							"verificationCode"=>$verificationCode,
+						), REST_Controller::HTTP_OK);
+					} else {
+						$this->response(array(
+							"status" => DATA_SAVE_ERROR,
+							"message" => DATA_SAVE_MESSAGE
+						), REST_Controller::HTTP_OK);
+					}
                 }
             } else {
                 $this->response(array(
