@@ -92,7 +92,7 @@ class UserModel extends CI_Model
             ->get()->row_array();
         $i=0;
         $finalData=array();
-		$is_profile_complete = false;
+		$finalData['is_profile_complete'] = false;
         if(!empty($users)){
             $finalData['userId']=$users['userId'];
             $finalData['userName']=$users['userName'];
@@ -151,18 +151,10 @@ class UserModel extends CI_Model
 			$finalData['education'] = ($get_education) ? $get_education : [];//
 
 			// Set profile status complete/incomplete
-			$is_profile_complete = ($users['userName']) 				? true : false;
-			$is_profile_complete = ($users['martialStatus']) 			? true : false;
-			$is_profile_complete = ($users['profileImageUrl']) 			? true : false;
-			$is_profile_complete = ($users['gender']) 					? true : false;
-			$is_profile_complete = ($users['city']) 					? true : false;
-			$is_profile_complete = ($users['phoneNo']) 					? true : false;
-			$is_profile_complete = ($users['country']) 					? true : false;
-			$is_profile_complete = ($users['height'])					? true : false;
-			$is_profile_complete = count($finalData['occupation']) > 0 	? true : false;
-			$is_profile_complete = count($finalData['education']) > 0 	? true : false;
+			if( ($users['userName']) && ($users['martialStatus']) && ($users['profileImageUrl']) && ($users['gender']) && ($users['city']) && ($users['phoneNo']) && ($users['country']) && ($users['height']) && count($finalData['occupation']) > 0 && count($finalData['education']) > 0 ){
+				$finalData['is_profile_complete'] = true;
+			}
         }
-		$finalData['is_profile_complete'] = $is_profile_complete;
         return  $finalData;
     }
 
