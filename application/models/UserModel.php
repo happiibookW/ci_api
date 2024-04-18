@@ -92,13 +92,14 @@ class UserModel extends CI_Model
             ->get()->row_array();
         $i=0;
         $finalData=array();
+		$is_profile_complete = false;
         if(!empty($users)){
             $finalData['userId']=$users['userId'];
             $finalData['userName']=$users['userName'];
             $finalData['email']=$users['email'];
             $finalData['DOB']=$users['DOB'];
             $finalData['martialStatus']=$users['martialStatus'];
-            $finalData['profileImageUrl']=($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
             $finalData['gender']=$users['gender'];
             $finalData['city']=$users['city'];
             $finalData['postCode']=$users['postCode'];
@@ -144,11 +145,24 @@ class UserModel extends CI_Model
             }
 
 			$get_occupation = $this->get_occupation($users['userId']);
-			$finalData['occupation'] = ($get_occupation) ? $get_occupation: [];
+			$finalData['occupation'] = ($get_occupation) ? $get_occupation: [];//
 
 			$get_education = $this->get_education($users['userId']);
-			$finalData['education'] = ($get_education) ? $get_education : [];
+			$finalData['education'] = ($get_education) ? $get_education : [];//
+
+			// Set profile status complete/incomplete
+			$is_profile_complete = ($users['userName']) 				? true : false;
+			$is_profile_complete = ($users['martialStatus']) 			? true : false;
+			$is_profile_complete = ($users['profileImageUrl']) 			? true : false;
+			$is_profile_complete = ($users['gender']) 					? true : false;
+			$is_profile_complete = ($users['city']) 					? true : false;
+			$is_profile_complete = ($users['phoneNo']) 					? true : false;
+			$is_profile_complete = ($users['country']) 					? true : false;
+			$is_profile_complete = ($users['height'])					? true : false;
+			$is_profile_complete = count($finalData['occupation']) > 0 	? true : false;
+			$is_profile_complete = count($finalData['education']) > 0 	? true : false;
         }
+		$finalData['is_profile_complete'] = $is_profile_complete;
         return  $finalData;
     }
 
