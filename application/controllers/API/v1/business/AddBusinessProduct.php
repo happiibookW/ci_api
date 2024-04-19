@@ -64,7 +64,7 @@ class AddBusinessProduct extends REST_Controller
                             
                             $config['upload_path']   = 'public/business/product/';
                             $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                            $config['max_size']      = '5000';
+                            $config['max_size']      = '500000';
                             $config['file_name']     = $_FILES['imageUrl']['name'][$i];
                             
                             $this->load->library('upload', $config);
@@ -75,11 +75,11 @@ class AddBusinessProduct extends REST_Controller
                                     'productId' => $productId,
                                     "imageUrl" => "business/product/".$uploadData['file_name']
                                 );
-                                
-                                $gallaryfile = $filename;
+                                $this->BusinessModel->businessProductImage($gallaryfile);
+                                // $gallaryfile = $filename;
                             }
                         }
-                       $this->BusinessModel->businessProductImage($gallaryfile); 
+                       
                     }
                     
                     
