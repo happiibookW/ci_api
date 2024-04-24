@@ -99,7 +99,7 @@ class UserModel extends CI_Model
             $finalData['email']=$users['email'];
             $finalData['DOB']=$users['DOB'];
             $finalData['martialStatus']=$users['martialStatus'];
-            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://127.0.0.1:8000/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
             $finalData['gender']=$users['gender'];
             $finalData['city']=$users['city'];
             $finalData['postCode']=$users['postCode'];
