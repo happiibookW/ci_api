@@ -505,11 +505,22 @@ class PostModel extends CI_Model
      }
      
      public function fetchpostcomment($compare){
-        return  $this->db->select('t1.*, t2.userName,t2.profileImageUrl')
-     ->from('trnpostcomment as t1')
-     ->where($compare)
-     ->join('mstuser as t2', 't1.userId = t2.userId', 'LEFT')
-     ->get()->result_array();
+        $comments = $this->db
+        ->select('t1.*, t2.userName, t2.profileImageUrl')
+        ->from('trnpostcomment as t1')
+        ->where($compare)
+        ->join('mstuser as t2', 't1.userId = t2.userId', 'LEFT')
+        ->get()
+        ->result_array();
+
+		// Iterate through each comment and add site URL to profileImageUrl
+		foreach ($comments as &$comment) {
+			$comment['profileImageUrl'] = ($this->checkFileInLaravel($comment['profileImageUrl'])) ?
+			'http://18.117.21.112/hapiverse/public/' . $comment['profileImageUrl'] :
+			site_url('public/' . $comment['profileImageUrl']);
+		}
+
+		return $comments;
      }
      // delte comment
      public function delete($compare,$table){
