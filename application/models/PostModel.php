@@ -93,8 +93,12 @@ class PostModel extends CI_Model
         return $returnData;
      }
      public function fetchPostFile($postId){
-         $this->db->where("postId",$postId);
-         return $this->db->get("trnpostfiles")->result_array();
+		$this->db->where("postId",$postId);
+		$postFiles = $this->db->get("trnpostfiles")->result_array();
+		foreach ($postFiles as &$file) {
+			$file['postFileUrl'] = ($this->checkFileInLaravel($file['postFileUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$file['postFileUrl'] : site_url('public/'.$file['postFileUrl']);
+		}
+		return $postFiles;
      }
         // check already friend
     public function checkfollowing($compare){
@@ -239,7 +243,7 @@ class PostModel extends CI_Model
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
             $returnData[$i]['totalComment']=$postdata['totalComment'];
-             $compare=array(
+			$compare=array(
                 "followerId"=>$userId,
                 );
                 $followingStatus=$this->checkfollowing($compare);

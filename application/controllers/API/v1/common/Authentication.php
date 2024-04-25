@@ -34,7 +34,7 @@ class Authentication extends REST_Controller
             if ($email != "" && $password != "" && $deviceUUID!="" ) {
                 $data = array(
                     "email" => $email,
-                    "password" => password_hash($password, PASSWORD_DEFAULT),
+                    "password" => md5($password),
                 );
                 $profiledata=array();
                 $profiledata = $this->AuthenticationModel->auth($data);
