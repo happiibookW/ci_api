@@ -102,6 +102,7 @@ class UserModel extends CI_Model
             $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
             $finalData['gender']=$users['gender'];
             $finalData['city']=$users['city'];
+            $finalData['state']=$users['state'];
             $finalData['postCode']=$users['postCode'];
             $finalData['phoneNo']=$users['phoneNo'];
             $finalData['country']=$users['country'];
@@ -122,6 +123,7 @@ class UserModel extends CI_Model
             $finalData['addDate']=$users['addDate'];
             $finalData['editDate']=$users['editDate'];
             $finalData['height']=$users['height'];
+            $finalData['weight']=$users['weight'];
             $finalData['religion']=$users['religion'];
             $finalData['imageData']=$this->profileImageAvatar($users['userId']);
             $compare=array(

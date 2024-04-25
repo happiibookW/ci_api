@@ -53,6 +53,9 @@ class UserProfileUpdate extends REST_Controller
             if($this->input->post('city')!=""){
             $updateData['city'] = $this->input->post('city');
             }
+			if($this->input->post('state')!=""){
+				$updateData['state'] = $this->input->post('state');
+				}
             if($this->input->post('postCode')!=""){
             $updateData['postCode'] = $this->input->post('postCode');
             }
@@ -74,6 +77,15 @@ class UserProfileUpdate extends REST_Controller
             if($this->input->post('phoneNo')!=""){
             $updateData['phoneNo'] = $this->input->post('phoneNo');
             }
+			if($this->input->post('height')!=""){
+				$updateData['height'] = $this->input->post('height');
+			}
+			if($this->input->post('religion')!=""){
+				$updateData['religion'] = $this->input->post('religion');
+			}
+			if($this->input->post('weight')!=""){
+				$updateData['weight'] = $this->input->post('weight');
+			}
              // if($this->input->post('avatarType')!=""){
             $updateData['avatarType'] = $this->input->post('avatarType');
            // }
