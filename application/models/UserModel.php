@@ -371,7 +371,7 @@ class UserModel extends CI_Model
 				) AS distance
 				FROM mstuser AS m WHERE userId != '$userId' " . 
 				(!empty($friendIdList) ? "AND userId NOT IN ($friendIdList)" : "") . "
-				HAVING distance <= 100
+				HAVING distance <= 1000
 				ORDER BY distance LIMIT 10;"
 			)->result_array();
 		} else {
@@ -385,7 +385,7 @@ class UserModel extends CI_Model
 				* 6371
 				) AS distance
 				FROM mstbusiness AS m WHERE businessId != '$userId' $queryCondition
-				HAVING distance <= 100
+				HAVING distance <= 1000
 				ORDER BY distance LIMIT 10;"
 			)->result_array();
 		}
