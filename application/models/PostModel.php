@@ -85,6 +85,10 @@ class PostModel extends CI_Model
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
             $returnData[$i]['totalComment']=$postdata['totalComment'];
+			$compare=array(
+                "postId"=>$postdata['postId'],
+                "userId"=>$data['userId'],
+                );
 			if($this->alreadyExists($compare,"trnlike")==true){
 				$returnData[$i]['isLiked']=true;
 			}else{
