@@ -103,15 +103,19 @@ class UserProfileUpdate extends REST_Controller
                 ////! Check Email Available in user Master Table
                 $upload = array(
                     "upload_path" => "public/userdoc/",
-                    "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV",
-                    "max_size" => 100000,
+                    "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List",
+                    "max_size" => 500000,
                     "encrypt_name" => TRUE
                 );
                 $profileImageUrl="";
-                 if(isset($_FILES['profileImageUrl']['name']) && !empty($_FILES['profileImageUrl']['name'])){
+				
+				if(isset($_FILES['profileImageUrl']['name']) && !empty($_FILES['profileImageUrl']['name'])){
                 $this->load->library('upload', $upload);
+				
                 if (!$this->upload->do_upload('profileImageUrl')) {
+					
                     echo $this->upload->display_errors();
+					exit;
                 } else {
                     $data       = $this->upload->data();
                     $updateData['profileImageUrl'] = "userdoc/" . $data['file_name'];
