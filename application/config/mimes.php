@@ -104,6 +104,7 @@ return array(
 	'mpe'	=>	'video/mpeg',
 	'qt'	=>	'video/quicktime',
 	'mov'	=>	'video/quicktime',
+	'webp' => array('image/webp', 'image/x-webp'),
 	'avi'	=>	array('video/x-msvideo', 'video/msvideo', 'video/avi', 'application/x-troff-msvideo'),
 	'movie'	=>	'video/x-sgi-movie',
 	'doc'	=>	array('application/msword', 'application/vnd.ms-office'),
