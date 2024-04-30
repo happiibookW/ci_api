@@ -103,7 +103,7 @@ class UserProfileUpdate extends REST_Controller
                 ////! Check Email Available in user Master Table
                 $upload = array(
                     "upload_path" => "public/userdoc/",
-                    "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List",
+                    "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List|webp",
                     "max_size" => 500000,
                     "encrypt_name" => TRUE
                 );
