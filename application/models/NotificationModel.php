@@ -26,12 +26,12 @@ class NotificationModel extends CI_Model
     }
 	public function getProfileImageUrl($imageUrl)
 	{
-		return ($this->checkFileInLaravel($imageUrl)) ? 'http://18.117.21.112/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
+		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
 	}
 
 	public function checkFileInLaravel($image)
 	{
-		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);

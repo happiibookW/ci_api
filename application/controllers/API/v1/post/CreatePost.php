@@ -197,7 +197,7 @@ class CreatePost extends REST_Controller
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => 'http://18.117.21.112/hapiverse/public/api/upload',
+				CURLOPT_URL => 'https://hapiverse.com/hapiverse/public/api/upload',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
@@ -205,7 +205,7 @@ class CreatePost extends REST_Controller
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POSTFIELDS => array('image'=> new CURLFILE('http://18.117.21.112/ci_api/public/'.$image)),
+				CURLOPT_POSTFIELDS => array('image'=> new CURLFILE('https://hapiverse.com/ci_api/public/'.$image)),
 			
 			));
 

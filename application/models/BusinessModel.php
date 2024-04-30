@@ -64,8 +64,8 @@ class BusinessModel extends CI_Model
             $finalData['businessName']=$users['businessName'];
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
-            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['featureImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['featureImageUrl'] : site_url('public/'.$users['featureImageUrl']);
-            $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
+            $finalData['featureImageUrl']=($this->checkFileInLaravel($users['featureImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['featureImageUrl'] : site_url('public/'.$users['featureImageUrl']);
+            $finalData['logoImageUrl']=($this->checkFileInLaravel($users['logoImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['logoImageUrl'] : site_url('public/'.$users['logoImageUrl']);
             $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
             $finalData['city']=$users['city'];
             $finalData['businessContact']=$users['businessContact'];
@@ -109,7 +109,7 @@ class BusinessModel extends CI_Model
     }
 	public function checkFileInLaravel($image)
 	{
-		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);

@@ -105,7 +105,7 @@ class PostModel extends CI_Model
 		$this->db->where("postId",$postId);
 		$postFiles = $this->db->get("trnpostfiles")->result_array();
 		foreach ($postFiles as &$file) {
-			$file['postFileUrl'] = ($this->checkFileInLaravel($file['postFileUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$file['postFileUrl'] : site_url('public/'.$file['postFileUrl']);
+			$file['postFileUrl'] = ($this->checkFileInLaravel($file['postFileUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$file['postFileUrl'] : site_url('public/'.$file['postFileUrl']);
 		}
 		return $postFiles;
      }
@@ -221,11 +221,11 @@ class PostModel extends CI_Model
             $returnData[$i]['userId']=$postdata['userId'];
             if($userInfo["isBusiness"]==false){
             $returnData[$i]['userName']=$userInfo['userName'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             }else{
                  $returnData[$i]['userName']=$userInfo['businessName'];
             // $returnData[$i]['profileImageUrl']=$userInfo['logoImageUrl'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['logoImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['logoImageUrl'] : site_url('public/'.$userInfo['logoImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['logoImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$userInfo['logoImageUrl'] : site_url('public/'.$userInfo['logoImageUrl']);
             }
             if($postdata['groupId']!=""){
                 // $groupInfo = $this->fetchGroupDetail($postdata['groupId']);
@@ -291,7 +291,7 @@ class PostModel extends CI_Model
 
 	public function checkFileInLaravel($image) {
 
-		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
@@ -363,7 +363,7 @@ class PostModel extends CI_Model
             $returnData[$i]['expire_at']=$postdata['expire_at'];
             $returnData[$i]['interest']=$postdata['interest'];
             $returnData[$i]['active']=$postdata['active'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             $returnData[$i]['location']=$postdata['location'];
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
@@ -399,7 +399,7 @@ class PostModel extends CI_Model
             if($myId != $postdata['userId']){
             $returnData[$i]['userId']=$postdata['userId'];
             $returnData[$i]['userName']=$postdata['userName'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($postdata['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$postdata['profileImageUrl'] : site_url('public/'.$postdata['profileImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($postdata['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$postdata['profileImageUrl'] : site_url('public/'.$postdata['profileImageUrl']);
             $returnData[$i]['storyItem']=$this->fetchstorypostforuser($postdata['userId']);
           $i++;
         }
@@ -429,7 +429,7 @@ class PostModel extends CI_Model
             $returnData[$i]['interest']=$postdata['interest'];
             $returnData[$i]['active']=$postdata['active'];
             $returnData[$i]['profileName']=$postdata['profileName'];
-            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
+            $returnData[$i]['profileImageUrl']=($this->checkFileInLaravel($userInfo['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$userInfo['profileImageUrl'] : site_url('public/'.$userInfo['profileImageUrl']);
             $returnData[$i]['location']=$postdata['location'];
             $returnData[$i]['postContentText']=$postdata['postContentText'];
             $returnData[$i]['totalLike']=$postdata['totalLike'];
@@ -502,10 +502,10 @@ class PostModel extends CI_Model
 		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
 		   $returnData['profileImageUrl'] = ($userdata['profileImageUrl']) ?
 		   (($this->checkFileInLaravel($userdata['profileImageUrl'])) ?
-			   'http://18.117.21.112/hapiverse/public/' . $userdata['profileImageUrl'] :
+			   'https://hapiverse.com/hapiverse/public/' . $userdata['profileImageUrl'] :
 			   site_url('public/' . $userdata['profileImageUrl'])) :
 		   (($this->checkFileInLaravel($userdata['logoImageUrl'])) ?
-			   'http://18.117.21.112/hapiverse/public/' . $userdata['logoImageUrl'] :
+			   'https://hapiverse.com/hapiverse/public/' . $userdata['logoImageUrl'] :
 			   site_url('public/' . $userdata['logoImageUrl']));
 	   
 		   $returnData['storyItem']=$this->fetchstorypostforuser($returnData['userId']);
@@ -525,7 +525,7 @@ class PostModel extends CI_Model
 		// Iterate through each comment and add site URL to profileImageUrl
 		foreach ($comments as &$comment) {
 			$comment['profileImageUrl'] = ($this->checkFileInLaravel($comment['profileImageUrl'])) ?
-			'http://18.117.21.112/hapiverse/public/' . $comment['profileImageUrl'] :
+			'https://hapiverse.com/hapiverse/public/' . $comment['profileImageUrl'] :
 			site_url('public/' . $comment['profileImageUrl']);
 		}
 

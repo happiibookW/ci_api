@@ -30,34 +30,32 @@ class FetchFeedPost extends REST_Controller
     {
 
         try {
-           
-                $userId=$this->input->post("userId");
-                if($userId!=""){
-                    $compare=array(
-                        "userId"=>$userId,
-                        );
-                $postdata = $this->PostModel->fetchPostFeed($compare);
-                if ($postdata != "" && !empty($postdata)) {
-                    $this->response(array(
-                        "status" => DATA_AVAILABLE,
-                        "message" => DATA_AVAILABLE_MESSAGE,
-                        "data" => $postdata,
-                    ), REST_Controller::HTTP_OK);
-                } else {
-                    $this->response(array(
-                        "status" => DATA_NOT_AVAILABLE,
-                        "message" => DATA_NOT_AVAILABLE_MESSAGE,
-                        "data" => $postdata
-                    ), REST_Controller::HTTP_OK);
-                }
-                }else{
-                     $this->response(array(
-                        "status" => REQUIRED_FIELDS,
-                        "message" => REQUIRED_FIELDS_MESSAGE,
-                        "data" => $postdata
-                    ), REST_Controller::HTTP_OK);
-                }
-          
+			$userId=$this->input->post("userId");
+			if($userId!=""){
+				$compare=array(
+					"userId"=>$userId,
+				);
+			$postdata = $this->PostModel->fetchPostFeed($compare);
+			if ($postdata != "" && !empty($postdata)) {
+				$this->response(array(
+					"status" => DATA_AVAILABLE,
+					"message" => DATA_AVAILABLE_MESSAGE,
+					"data" => $postdata,
+				), REST_Controller::HTTP_OK);
+			} else {
+				$this->response(array(
+					"status" => DATA_NOT_AVAILABLE,
+					"message" => DATA_NOT_AVAILABLE_MESSAGE,
+					"data" => $postdata
+				), REST_Controller::HTTP_OK);
+			}
+			}else{
+					$this->response(array(
+					"status" => REQUIRED_FIELDS,
+					"message" => REQUIRED_FIELDS_MESSAGE,
+					"data" => $postdata
+				), REST_Controller::HTTP_OK);
+			}
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
         }

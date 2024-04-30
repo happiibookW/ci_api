@@ -99,7 +99,7 @@ class UserModel extends CI_Model
             $finalData['email']=$users['email'];
             $finalData['DOB']=$users['DOB'];
             $finalData['martialStatus']=$users['martialStatus'];
-            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'http://18.117.21.112/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
             $finalData['gender']=$users['gender'];
             $finalData['city']=$users['city'];
             $finalData['state']=$users['state'];
@@ -162,7 +162,7 @@ class UserModel extends CI_Model
 
 	public function checkFileInLaravel($image) {
 
-		$laravelEndpoint = 'http://18.117.21.112/hapiverse/public/check-file';
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
@@ -398,7 +398,7 @@ class UserModel extends CI_Model
 
 	public function getProfileImageUrl($imageUrl)
 	{
-		return ($this->checkFileInLaravel($imageUrl)) ? 'http://18.117.21.112/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
+		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
 	}
     public function insertOrder($data,$table){
         return $this->db->insert($table,$data);
