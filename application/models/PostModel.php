@@ -499,7 +499,7 @@ class PostModel extends CI_Model
 		if(!empty($userdata) && $isposted ){
 		   
 		   $returnData['userId']=($userdata['userId']) ? $userdata['userId'] : $userdata['businessId'];
-		   $returnData['userName']=($userdata['userName']) ? $userdata['userId'] : $userdata['businessName'];
+		   $returnData['userName']=($userdata['userName']) ? $userdata['userName'] : $userdata['businessName'];
 		   $returnData['profileImageUrl'] = ($userdata['profileImageUrl']) ?
 		   (($this->checkFileInLaravel($userdata['profileImageUrl'])) ?
 			   'https://hapiverse.com/hapiverse/public/' . $userdata['profileImageUrl'] :
