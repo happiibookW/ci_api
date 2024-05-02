@@ -127,31 +127,23 @@ class UserModel extends CI_Model
             $finalData['religion']=$users['religion'];
             $finalData['imageData']=$this->profileImageAvatar($users['userId']);
             $compare=array(
-                "userId"=>$data['userId'],
+                 "userId"=>$data['userId'],
                 "followerId"=>$data['myId'],
-				"type" => 3
                 );
                 $followingStatus=$this->checkfollowing($compare);
                  $compare=array(
                 "userId"=>$data['myId'],
-                "followerId"=>$data['userId'],
-				"type" => 2
+                "followerId"=>$data['userId']
+                
                 );
             $followingFollowerStatus=$this->checkfollowing($compare);
-
-			$compare=array(
-                "userId"=>$data['userId'],
-                "followerId"=>$data['myId'],
-				"type" => 1
-                );
-            $friendStatus=$this->checkfollowing($compare);
             
-            if(!empty($followingFollowerStatus)){
-                $finalData['IsFriend']="Follow";
+            if(!empty($followingFollowerStatus) && !empty($followingStatus)){
+                $finalData['IsFriend']="Friend";
             }elseif(!empty($followingStatus)){
                 $finalData['IsFriend']="Following";
-			}elseif(!empty($friendStatus)){
-                $finalData['IsFriend']="Friend";
+                }else{
+                $finalData['IsFriend']="Follow";
             }
 
 			$get_occupation = $this->get_occupation($users['userId']);
@@ -393,7 +385,7 @@ class UserModel extends CI_Model
 				* 6371
 				) AS distance
 				FROM mstbusiness AS m WHERE businessId != '$userId' $queryCondition
-				HAVING distance <= 1000
+				HAVING distance <= 10000
 				ORDER BY distance LIMIT 10;"
 			)->result_array();
 		}
