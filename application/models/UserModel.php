@@ -138,12 +138,19 @@ class UserModel extends CI_Model
 				"type" => 2
                 );
             $followingFollowerStatus=$this->checkfollowing($compare);
+
+			$compare=array(
+                "userId"=>$data['userId'],
+                "followerId"=>$data['myId'],
+				"type" => 1
+                );
+            $friendStatus=$this->checkfollowing($compare);
             
             if(!empty($followingFollowerStatus)){
                 $finalData['IsFriend']="Follow";
             }elseif(!empty($followingStatus)){
                 $finalData['IsFriend']="Following";
-			}else{
+			}elseif(!empty($friendStatus)){
                 $finalData['IsFriend']="Friend";
             }
 
