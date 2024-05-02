@@ -139,12 +139,12 @@ class UserModel extends CI_Model
                 );
             $followingFollowerStatus=$this->checkfollowing($compare);
             
-            if(!empty($followingFollowerStatus) && !empty($followingStatus)){
-                $finalData['IsFriend']="Friend";
+            if(!empty($followingFollowerStatus)){
+                $finalData['IsFriend']="Follow";
             }elseif(!empty($followingStatus)){
                 $finalData['IsFriend']="Following";
-                }else{
-                $finalData['IsFriend']="Follow";
+			}else{
+                $finalData['IsFriend']="Friend";
             }
 
 			$get_occupation = $this->get_occupation($users['userId']);
