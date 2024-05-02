@@ -127,14 +127,15 @@ class UserModel extends CI_Model
             $finalData['religion']=$users['religion'];
             $finalData['imageData']=$this->profileImageAvatar($users['userId']);
             $compare=array(
-                 "userId"=>$data['userId'],
+                "userId"=>$data['userId'],
                 "followerId"=>$data['myId'],
+				"type" => 3
                 );
                 $followingStatus=$this->checkfollowing($compare);
                  $compare=array(
                 "userId"=>$data['myId'],
-                "followerId"=>$data['userId']
-                
+                "followerId"=>$data['userId'],
+				"type" => 2
                 );
             $followingFollowerStatus=$this->checkfollowing($compare);
             
