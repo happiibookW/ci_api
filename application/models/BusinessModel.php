@@ -348,8 +348,8 @@ class BusinessModel extends CI_Model
 	   return $data;
    }
     public function fetchAllREviews($compare,$table){
-		
-		$this->db->select('t1.*, t2.businessName, t3.profileImageUrl')
+
+		$this->db->select('t1.*, t2.businessName, t2.logoImageUrl')
 		->from($table . ' as t1')
 		->join('mstbusiness as t2', 't1.businessId = t2.businessId', 'LEFT')
 		->join('profileimageavatar as t3', 't1.businessId = t3.userId', 'LEFT');
