@@ -349,7 +349,7 @@ class BusinessModel extends CI_Model
    }
     public function fetchAllREviews($compare,$table){
 
-		$this->db->select('t1.*, t2.businessName, t2.logoImageUrl')
+		$this->db->select('t1.*, t2.businessName AS userName, t2.logoImageUrl AS profileImageUrl')
 		->from($table . ' as t1')
 		->join('mstbusiness as t2', 't1.businessId = t2.businessId', 'LEFT')
 		->join('profileimageavatar as t3', 't1.businessId = t3.userId', 'LEFT');
@@ -357,8 +357,13 @@ class BusinessModel extends CI_Model
 		if (isset($compare['businessId'])) {
 			$this->db->where('t1.businessId', $compare['businessId']);
 		}
+		
+		$results  = $this->db->get()->result_array();
 
-		return $this->db->get()->result_array();
+		foreach ($results as &$result) {
+			$result['profileImageUrl'] = ($this->checkFileInLaravel($result['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$result['profileImageUrl'] : site_url('public/'.$result['profileImageUrl']);
+		}
+		return $results;
   }
   public function fetchReviewRating($compare,$table){
       $return = array();
@@ -374,6 +379,7 @@ class BusinessModel extends CI_Model
      $this->db->where($compare);
 	 return $this->db->get($table)->row_array();
   }
+  
   /// fetch data against
        public function fetchOrder($compare,$table){
               $finalData=array();
