@@ -350,11 +350,11 @@ class BusinessModel extends CI_Model
     public function fetchAllREviews($compare,$table){
 //      $this->db->where($compare);
 // 	 return $this->db->get($table)->result_array();
-	return $this->db->select('t1.*, t2.userName, t3.profileImageUrl')
+	return $this->db->select('t1.*, t2.businessName, t3.profileImageUrl')
      ->from('mstbusinessrating as t1')
      ->where($compare)
-     ->join('mstuser as t2', 't1.userId = t2.userId', 'LEFT')
-     ->join('profileimageavatar as t3', 't1.userId = t3.userId', 'LEFT')
+     ->join('mstbusiness as t2', 't1.businessId	 = t2.businessId', 'LEFT')
+     ->join('profileimageavatar as t3', 't1.businessId = t3.userId', 'LEFT')
      ->get()->result_array();;
   }
   public function fetchReviewRating($compare,$table){
