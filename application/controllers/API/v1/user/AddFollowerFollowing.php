@@ -34,10 +34,12 @@ class AddFollowerFollowing extends REST_Controller
         try {
             $userId = $this->input->post('userId');
             $followerId = $this->input->post('followerId');
+			$type = $this->input->post('type');
             if ( $userId != "" && $followerId != "" ) {
                 $followerFollowingData = array(
                     "userId" => $userId,
                     "followerId" => $followerId,
+					'type' => $type
                 );
                 if ($this->UserModel->followerFollowingAdd($followerFollowingData, "trnfollowerfollowing") == true) {
                     $this->response(array(
