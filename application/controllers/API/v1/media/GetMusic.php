@@ -43,7 +43,7 @@ class GetMusic extends REST_Controller
     curl_close($ch);    
    $barerToken=$result['access_token'];
     //find spotify data
-    $spotifyURL = 'https://api.spotify.com/v1/recommendations?limit=10&market=PL&seed_artists=4NHQUGzhtTLFvgF5SZesLK%2C5FF8xJSW4qUVU8bk79KYLT&seed_genres=classical&seed_tracks=0c6xIDDpzE81m2q797ordA%2C2Q9nA56DKKJhj4cHMbHlAS';
+    $spotifyURL = 'https://api.spotify.com/v1/recommendations?limit=20&market=PL&seed_artists=4NHQUGzhtTLFvgF5SZesLK%2C5FF8xJSW4qUVU8bk79KYLT&seed_genres=classical&seed_tracks=0c6xIDDpzE81m2q797ordA%2C2Q9nA56DKKJhj4cHMbHlAS';
     $authorization = 'Authorization: Bearer '.$barerToken;
 
     $ch = curl_init();
