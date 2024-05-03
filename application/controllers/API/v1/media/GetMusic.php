@@ -29,9 +29,11 @@ class GetMusic extends REST_Controller
     {
 
         try {
-            $client_id = 'ad9393e8e1994b5cb04547eca7e7b368'; 
-            $client_secret = 'd5b771386fad4175a1ff6a4baed19859'; 
+            // $client_id = 'ad9393e8e1994b5cb04547eca7e7b368'; 
+            // $client_secret = 'd5b771386fad4175a1ff6a4baed19859'; 
 
+			$client_id = 'a8ee6bd205064e76b756054e488d1d69';
+            $client_secret = '46a5161175174df5a87a6edffe7c0903';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,            'https://accounts.spotify.com/api/token' );
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
