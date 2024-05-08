@@ -13,16 +13,16 @@ class GetMusic extends REST_Controller
         parent::__construct();
         $this->load->model('PostModel');
         $this->load->model('AppModel');
-        // $haveAccess = array(
-        //     'userId' => $this->input->get_request_header('userId'),
-        //     // 'token' => $this->input->get_request_header('token'),
-        // );
-        // if ($this->AppModel->haveaccess($haveAccess) == false) {
-        //     $this->response(array(
-        //         "status" => UNAUTHORIZED,
-        //         "message" => UNAUTHORIZED_MESSAGE
-        //     ), REST_Controller::HTTP_UNAUTHORIZED);
-        // }
+        $haveAccess = array(
+            'userId' => $this->input->get_request_header('userId'),
+            // 'token' => $this->input->get_request_header('token'),
+        );
+        if ($this->AppModel->haveaccess($haveAccess) == false) {
+            $this->response(array(
+                "status" => UNAUTHORIZED,
+                "message" => UNAUTHORIZED_MESSAGE
+            ), REST_Controller::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function index_post()
@@ -34,46 +34,85 @@ class GetMusic extends REST_Controller
 
 			$client_id = 'a8ee6bd205064e76b756054e488d1d69';
             $client_secret = '46a5161175174df5a87a6edffe7c0903';
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,            'https://accounts.spotify.com/api/token' );
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-    curl_setopt($ch, CURLOPT_POST,           1 );
-    curl_setopt($ch, CURLOPT_POSTFIELDS,     'grant_type=client_credentials' ); 
-    curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Authorization: Basic '.base64_encode($client_id.':'.$client_secret))); 
-    $result=curl_exec($ch); 
-    $result = json_decode($result, true);
-    curl_close($ch);    
-   $barerToken=$result['access_token'];
-    //find spotify data
-    $spotifyURL = 'https://api.spotify.com/v1/recommendations?limit=20&market=PL&seed_artists=4NHQUGzhtTLFvgF5SZesLK%2C5FF8xJSW4qUVU8bk79KYLT&seed_genres=classical&seed_tracks=0c6xIDDpzE81m2q797ordA%2C2Q9nA56DKKJhj4cHMbHlAS';
-    $authorization = 'Authorization: Bearer '.$barerToken;
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,            'https://accounts.spotify.com/api/token' );
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+			curl_setopt($ch, CURLOPT_POST,           1 );
+			curl_setopt($ch, CURLOPT_POSTFIELDS,     'grant_type=client_credentials' ); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Authorization: Basic '.base64_encode($client_id.':'.$client_secret))); 
+			$result=curl_exec($ch); 
+			$result = json_decode($result, true);
+			curl_close($ch);    
+			$barerToken=$result['access_token'];
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-    curl_setopt($ch, CURLOPT_URL, $spotifyURL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $json = curl_exec($ch);
-    //$json = json_decode($json, true);
-    curl_close($ch);
-   print_r($json);
-    // $spotifyURL_artist = $json['artists'][0]['href'];
 
-    // $ch = curl_init();
-    // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-    // curl_setopt($ch, CURLOPT_URL, $spotifyURL_artist);
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
-    // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-    // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    // $json_artist = curl_exec($ch);
-    // $data_artist = json_decode($json_artist, true);
-    // curl_close($ch);
+			//find spotify data
+			$spotifyURL = 'https://api.spotify.com/v1/recommendations?limit=20&market=IN&seed_artists=4YRxDV8wJFPHPTeXepOstw';
+			$authorization = 'Authorization: Bearer '.$barerToken;
 
-  
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+			curl_setopt($ch, CURLOPT_URL, $spotifyURL);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			$recojson = curl_exec($ch);
+	
+			curl_close($ch);
 
+			$spotifyAlbumsURL = 'https://api.spotify.com/v1/browse/new-releases';
+			$authorization = 'Authorization: Bearer '.$barerToken;
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+			curl_setopt($ch, CURLOPT_URL, $spotifyAlbumsURL);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			$albumjson = curl_exec($ch);
+
+			$spotifyCategoryUrl = 'https://api.spotify.com/v1/browse/categories';
+			$authorization = 'Authorization: Bearer '.$barerToken;
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+			curl_setopt($ch, CURLOPT_URL, $spotifyCategoryUrl);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			$categoryjson = curl_exec($ch);
+			
+			$spotifyGenreUrl = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
+			$authorization = 'Authorization: Bearer '.$barerToken;
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+			curl_setopt($ch, CURLOPT_URL, $spotifyGenreUrl);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			$genrejson = curl_exec($ch);
+			
+			$recoArray = json_decode($recojson, true);
+			$albumArray = json_decode($albumjson, true);
+			$categoryArray = json_decode($categoryjson, true);
+			$genreArray = json_decode($genrejson, true);
+
+			// Create a new associative array with keys
+			$resultArray = [
+				"recojson" => $recoArray,
+				"albumjson" => $albumArray,
+				"categoryjson" => $categoryArray,
+				"genrejson" => $genreArray
+			];
+
+			// Convert the associative array to JSON
+			$resultJson = json_encode($resultArray);
+			print($resultJson);
            
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
