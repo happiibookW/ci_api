@@ -29,6 +29,7 @@ class GetMusic extends REST_Controller
     {
 
         try {
+
             // $client_id = 'ad9393e8e1994b5cb04547eca7e7b368'; 
             // $client_secret = 'd5b771386fad4175a1ff6a4baed19859'; 
 
@@ -47,7 +48,7 @@ class GetMusic extends REST_Controller
 
 
 			//find spotify data
-			$spotifyURL = 'https://api.spotify.com/v1/recommendations?limit=20&market=IN&seed_artists=4YRxDV8wJFPHPTeXepOstw';
+			$spotifyURL = 'https://api.spotify.com/v1/browse/new-releases';
 			$authorization = 'Authorization: Bearer '.$barerToken;
 
 			$ch = curl_init();
@@ -57,8 +58,8 @@ class GetMusic extends REST_Controller
 			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$recojson = curl_exec($ch);
-	
+			$getRecojson = curl_exec($ch);
+			$recojson = $getRecojson['albums'];
 			curl_close($ch);
 
 			$spotifyAlbumsURL = 'https://api.spotify.com/v1/browse/new-releases';
