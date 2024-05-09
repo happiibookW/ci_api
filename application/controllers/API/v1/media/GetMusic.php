@@ -131,11 +131,16 @@ class GetMusic extends REST_Controller
 		
 			curl_close($ch);
 		
-			$recoArray = $artistsArray;
+			$recoArray = array_slice($artistsArray, 0, 5);
 			$albumArray = json_decode($albumjson, true);
 			$categoryArray = json_decode($categoryjson, true);
 			$genreArray = json_decode($genrejson, true);
-		
+
+			// Slice the arrays to get only the first 5 elements
+			$albumArray = array_slice($albumArray, 0, 5);
+			$categoryArray = array_slice($categoryArray, 0, 5);
+			$genreArray = array_slice($genreArray, 0, 5);
+
 			// Create a new associative array with keys
 			$resultArray = [
 				"artistsjson" => $recoArray,
