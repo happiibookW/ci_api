@@ -42,7 +42,7 @@ class GetMusic extends REST_Controller
 			curl_close($ch);
 			$barerToken = $result['access_token'];
 		
-			$spotifyAlbumsURL = 'https://api.spotify.com/v1/browse/new-releases';
+			$spotifyAlbumsURL = 'https://api.spotify.com/v1/browse/new-releases?offset=0&limit=10';
 			$authorization = 'Authorization: Bearer '.$barerToken;
 		
 			$ch = curl_init();
@@ -68,7 +68,7 @@ class GetMusic extends REST_Controller
 		
 				foreach($albumdata['items'] as $album){
 					foreach ($album['artists'] as $artist) {
-						$spotifyArtistsURL = 'https://api.spotify.com/v1/artists/'.$artist['id'].'?limit=5';
+						$spotifyArtistsURL = 'https://api.spotify.com/v1/artists/'.$artist['id'].'?offset=0&limit=10';
 						$authorization = 'Authorization: Bearer '.$barerToken;
 		
 						$ch = curl_init();
@@ -95,7 +95,7 @@ class GetMusic extends REST_Controller
 				echo "No albums data found.";
 			}
 		
-			$spotifyCategoryUrl = 'https://api.spotify.com/v1/browse/categories';
+			$spotifyCategoryUrl = 'https://api.spotify.com/v1/browse/categories?offset=0&limit=10';
 			$authorization = 'Authorization: Bearer '.$barerToken;
 		
 			$ch = curl_init();
@@ -113,7 +113,7 @@ class GetMusic extends REST_Controller
 		
 			curl_close($ch);
 		
-			$spotifyGenreUrl = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
+			$spotifyGenreUrl = 'https://api.spotify.com/v1/recommendations/available-genre-seeds?offset=0&limit=10';
 			$authorization = 'Authorization: Bearer '.$barerToken;
 		
 			$ch = curl_init();
@@ -124,29 +124,26 @@ class GetMusic extends REST_Controller
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			$genrejson = curl_exec($ch);
-		
+			
 			if(curl_errno($ch)) {
 				echo 'Error: ' . curl_error($ch);
 			}
 		
 			curl_close($ch);
 		
-			$recoArray = array_slice($artistsArray, 0, 5);
+			$recoArray = array_slice($artistsArray, 0, 10);
 			$albumArray = json_decode($albumjson, true);
 			$categoryArray = json_decode($categoryjson, true);
 			$genreArray = json_decode($genrejson, true);
+			$genresToShow = array_slice($genreArray['genres'], 0, 10);
 
-			// Slice the arrays to get only the first 5 elements
-			$albumArray = array_slice($albumArray, 0, 5);
-			$categoryArray = array_slice($categoryArray, 0, 5);
-			$genreArray = array_slice($genreArray, 0, 5);
-
+			
 			// Create a new associative array with keys
 			$resultArray = [
 				"artistsjson" => $recoArray,
 				"albumjson" => $albumArray,
 				"categoryjson" => $categoryArray,
-				"genrejson" => $genreArray
+				"genrejson" => $genresToShow
 			];
 		
 			// Convert the associative array to JSON
