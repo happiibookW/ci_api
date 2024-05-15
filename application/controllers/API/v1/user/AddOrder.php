@@ -42,7 +42,7 @@ class AddOrder extends REST_Controller
                     "totalAmount"=>$orderCost+$shippingCost,
                     );
                     
-                if ($this->UserModel->insertOrder($orderData, "businessOrders") == true) {
+                if ($this->UserModel->insertOrder($orderData, "businessorders") == true) {
                     #sendMail($email,'verfication COde',$verficationCode);
                  
                     $this->response(array(
