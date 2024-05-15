@@ -29,7 +29,7 @@ class AddOrder extends REST_Controller
             $shippingCost = $this->input->post('shippingCost');
             $shippingAddress = $this->input->post('shippingAddress');
             $orderNo=random_string("alnum",6);
-         
+			
             if ($businessId != "" && $userId != "" && $productId!="" && $orderCost!="" ) {
                 $orderData=array(
                     "orderNo"=>$orderNo,
