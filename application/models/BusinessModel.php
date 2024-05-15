@@ -284,7 +284,11 @@ class BusinessModel extends CI_Model
     }
     public function fetchproductImage($compare){
         $this->db->where($compare);
-        return $this->db->get('businessproductimages')->result_array();
+        $results =  $this->db->get('businessproductimages')->result_array();
+		foreach ($results as &$result) {
+			$result['imageUrl'] = ($this->checkFileInLaravel($result['imageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$result['imageUrl'] : site_url('public/'.$result['imageUrl']);
+		}
+		return $results;
     }
     public function updatePrdoductData($data,$table,$compare){
         $this->db->where($compare);
