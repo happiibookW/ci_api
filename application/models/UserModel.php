@@ -406,7 +406,7 @@ class UserModel extends CI_Model
     public function fetchOrder($compare,$table){
         $finalData=array();
          $products=  $this->db->select('t1.*,t2.productName,t2.productPrice,t2.productdescription,t3.businessName')
-            ->from('businessOrders as t1')
+            ->from('businessorders as t1')
             ->where($compare)
             ->join('businessproduct as t2', 't1.productId = t2.productId', 'LEFT')
              ->join('mstbusiness as t3', 't1.businessId = t3.businessId', 'LEFT')
