@@ -13,7 +13,7 @@ class AddBusinessProduct extends REST_Controller
         parent::__construct();
         $this->load->model('BusinessModel');
                 $upload = array(
-                    "upload_path" => "business/product/",
+                    "upload_path" => "public/business/product/",
                     "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List",
                     "max_size" => 100000,
                     "encrypt_name" => TRUE
@@ -47,7 +47,7 @@ class AddBusinessProduct extends REST_Controller
                     "collectionId"=>$collectionId,
                     );
                 if ($this->BusinessModel->insertproduct($productData, "businessproduct") == true) {
-                      
+					
                     $gallaryfile = array();
                     
                     $count = count($_FILES['imageUrl']['name']);
@@ -55,7 +55,7 @@ class AddBusinessProduct extends REST_Controller
                     for ($i = 0; $i < $count; $i++) {
                         
                         if (!empty($_FILES['imageUrl']['name'][$i])) {
-                            
+							
                             $_FILES['file']['name']     = $_FILES['imageUrl']['name'][$i];
                             $_FILES['file']['type']     = $_FILES['imageUrl']['type'][$i];
                             $_FILES['file']['tmp_name'] = $_FILES['imageUrl']['tmp_name'][$i];
@@ -68,16 +68,18 @@ class AddBusinessProduct extends REST_Controller
                             $config['file_name']     = $_FILES['imageUrl']['name'][$i];
                             
                             $this->load->library('upload', $config);
-                            
+							
                             if ($this->upload->do_upload('file')) {
+								
                                 $uploadData = $this->upload->data();
                                 $filename   = array(
                                     'productId' => $productId,
                                     "imageUrl" => "business/product/".$uploadData['file_name']
                                 );
-                                $this->BusinessModel->businessProductImage($gallaryfile);
+                                $this->BusinessModel->businessProductImage($filename);
                                 // $gallaryfile = $filename;
                             }
+							
                         }
                        
                     }

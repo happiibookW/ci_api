@@ -211,6 +211,7 @@ class BusinessModel extends CI_Model
     }
     
     public function businessProductImage($data){
+		
         return $this->db->insert('businessproductimages',$data);
     }
     public function fetchcollection($compare){
