@@ -36,7 +36,7 @@ class FetchMyOrder extends REST_Controller
                     "t1.businessId" => $businessId,
                   
                 );
-                $profiledata = $this->BusinessModel->fetchOrder($data,"businessOrders");
+                $profiledata = $this->BusinessModel->fetchOrder($data,"businessorders");
                 if ($profiledata != "") {
                     $this->response(array(
                         "status" => DATA_AVAILABLE,
