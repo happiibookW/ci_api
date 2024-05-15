@@ -286,7 +286,7 @@ class BusinessModel extends CI_Model
         $this->db->where($compare);
         $results =  $this->db->get('businessproductimages')->result_array();
 		foreach ($results as &$result) {
-			$result['imageUrl'] = ($this->checkFileInLaravel($result['imageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$result['imageUrl'] : site_url('public/'.$result['imageUrl']);
+			$result['imageUrl'] = ($this->checkFileInLaravel($result['imageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$result['imageUrl'] : 'https://hapiverse.com/ci_api/public/'.$result['imageUrl'];
 		}
 		return $results;
     }
