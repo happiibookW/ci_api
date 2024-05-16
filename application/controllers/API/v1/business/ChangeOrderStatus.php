@@ -30,7 +30,7 @@ class ChangeOrderStatus extends REST_Controller
                    "orderStatus"=>$orderStatus,
                    ($orderStatus==3)?"deleiveredDate":"activeDate"=>date("Y-m-d H:i:s"),
                    );
-                if ($this->BusinessModel->update($orderData, "businessOrders",$compare) == true) {
+                if ($this->BusinessModel->update($orderData, "businessorders",$compare) == true) {
                   
                     $this->response(array(
                         "status" => DATA_SAVE,
