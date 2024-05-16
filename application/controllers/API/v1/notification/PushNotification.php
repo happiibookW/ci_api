@@ -44,26 +44,23 @@ class PushNotification extends REST_Controller
                     "body" => $body,
                     "id"=>$id
                 );
-                if ($this->NotificationModel->insert($notificationData, "mstnotification") == true) {
-                    $userSetting=getSetting($receiverId);
-                    if(($notificationTypeId==3 && $userSetting['groupNotification']==0) || ($notificationTypeId==4 && $userSetting['postNotification']==0) ||
-                        ($notificationTypeId==5 &&
-                        $userSetting['allNotification']==0
-                           )){
+				
+			if ($this->NotificationModel->insert($notificationData, "mstnotification") == true) {
+				$userSetting=getSetting($receiverId);
+				if(($notificationTypeId==3 && $userSetting['groupNotification']==0) || ($notificationTypeId==4 && $userSetting['postNotification']==0) ||
+                        ($notificationTypeId==5 && $userSetting['allNotification']==0)){
                              $userInfo=$this->NotificationModel->fetchToken($receiverId);
-                //   $to=$userInfo['fcmToken'];
-                foreach($userInfo as $tokens){
-                    //   $to=$tokens['fcmToken'];
-                  $to = "en5sZtwG1EoPsplaYK8gZd:APA91bHTiWAo4vtC0MCw33X0YSdPgZSxlHdxuyn2oz85lVWEJ7r5xZS1EGF9O0zdTXoiq_Jlu2ZtDodCob1MZ3_E40qsI2fgYzMprS8Jvhuo2OU9aYp4D878hgGuaeRyBDGktWpKjtfS";
-                    $test=$this->sendnotification($to,$subject,$body);
-                    print_r($test);
-                }
-                    }
-               
-                    $this->response(array(
-                        "status" => DATA_SAVE,
-                        "message" => DATA_SAVE_MESSAGE
-                    ), REST_Controller::HTTP_OK);
+					foreach($userInfo as $tokens){
+						$to=$tokens['fcmToken'];
+						// $to = "eYsLZ2f0SQW4uhUo2aJUkg:APA91bEUCLQgkU4sdeWlywwIjmRpHqUAAoTT-IAzCwhxLl_FvXVAadqaPvLhL10oX1ST1mirjdmu1QOz-1IzrZHJe7K2wsUt0ZqrcedAdj97bwueI90eQdbfjV3VcP2vJVopwWtM5qAe";
+						$test = $this->sendnotification($to,$subject,$body);
+					
+					}
+				}
+				$this->response(array(
+					"status" => DATA_SAVE,
+					"message" => DATA_SAVE_MESSAGE
+				), REST_Controller::HTTP_OK);
                 } else {
                     $this->response(array(
                         "status" => DATA_SAVE_ERROR,
