@@ -396,7 +396,7 @@ class BusinessModel extends CI_Model
   /// fetch data against
        public function fetchOrder($compare,$table){
               $finalData=array();
-         $products=  $this->db->select('t1.*,t2.productName,t2.productPrice,t2.productdescription,t3.businessName')
+         $products=  $this->db->select('t1.*,t2.productName,t2.productPrice,t2.productdescription,t3.businessName,t4.userName,t4.profileImageUrl')
             ->from('businessorders as t1')
             ->where($compare)
              ->join('businessproduct as t2', 't1.productId = t2.productId', 'LEFT')
