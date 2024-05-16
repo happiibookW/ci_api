@@ -398,12 +398,13 @@ class UserModel extends CI_Model
 
 	public function getProfileImageUrl($imageUrl)
 	{
-		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : site_url('public/' . $imageUrl);
+		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : 'https://hapiverse.com/ci_api/public/' . $imageUrl;
 	}
     public function insertOrder($data,$table){
         return $this->db->insert($table,$data);
     }
     public function fetchOrder($compare,$table){
+		
         $finalData=array();
          $products=  $this->db->select('t1.*,t2.productName,t2.productPrice,t2.productdescription,t3.businessName')
             ->from('businessorders as t1')
@@ -440,7 +441,12 @@ class UserModel extends CI_Model
     }
     public function fetchImages($productId){
         $this->db->where("productId",$productId);
-        return $this->db->get("businessproductimages")->result_array();
+        $results =  $this->db->get("businessproductimages")->result_array();
+		
+		foreach ($results as &$result) {
+			$result['imageUrl'] = $this->getProfileImageUrl($result['imageUrl']);
+		}
+		return $results;
     }
     public function getUserId($email){
         $this->db->where("email",$email);
