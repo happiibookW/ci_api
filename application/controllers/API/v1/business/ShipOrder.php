@@ -35,7 +35,7 @@ class ShipOrder extends REST_Controller
            $compare=array(
                "orderId"=>$orderId,
                );
-                if ($this->BusinessModel->update($orderData, "businessOrders",$compare) == true) {
+                if ($this->BusinessModel->update($orderData, "businessorders",$compare) == true) {
                   
                     $this->response(array(
                         "status" => DATA_SAVE,
