@@ -331,7 +331,12 @@ class BusinessModel extends CI_Model
     public function fetchEventImages($compare)
     {
         $this->db->where($compare);
-        return $this->db->get('eventimages')->result_array();
+		$results =  $this->db->get("eventimages")->result_array();
+		
+		foreach ($results as &$result) {
+			$result['imageUrl'] = $this->getProfileImageUrl($result['imageUrl']);
+		}
+		return $results;
     }
     function getEvents($postData = null)
     {

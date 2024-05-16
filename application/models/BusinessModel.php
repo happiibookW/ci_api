@@ -329,7 +329,12 @@ class BusinessModel extends CI_Model
     }
     public function fetchEventImages($compare){
         $this->db->where($compare);
-        return $this->db->get('eventimages')->result_array();
+		$results =  $this->db->get("eventimages")->result_array();
+		
+		foreach ($results as &$result) {
+			$result['imageUrl'] = $this->getProfileImageUrl($result['imageUrl']);
+		}
+		return $results;
     }
     public function deleteData($compare,$table){
         $this->db->where($compare);
@@ -404,8 +409,8 @@ class BusinessModel extends CI_Model
             $finalData[$i]['orderNo']=$list['orderNo'];
             $finalData[$i]['productId']=$list['productId'];
             $finalData[$i]['businessId']=$list['businessId'];
-            $finalData[$i]['userName']='Ameer';
-            $finalData[$i]['userProfileUrl']='photo';
+            $finalData[$i]['userName']=($list['userName']) ? $list['userName']: $list['businessName'];
+            $finalData[$i]['userProfileUrl']=($list['profileImageUrl']) ? $list['profileImageUrl'] : $list['logoImageUrl'];
             $finalData[$i]['userId']=$list['userId'];
             $finalData[$i]['orderCost']=$list['orderCost'];
             $finalData[$i]['shippingCost']=$list['shippingCost'];
