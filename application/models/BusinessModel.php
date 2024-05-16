@@ -384,12 +384,15 @@ class BusinessModel extends CI_Model
      $this->db->where($compare);
 	 return $this->db->get($table)->row_array();
   }
-  
+  	public function getProfileImageUrl($imageUrl)
+  	{
+		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : 'https://hapiverse.com/ci_api/public/' . $imageUrl;
+	}
   /// fetch data against
        public function fetchOrder($compare,$table){
               $finalData=array();
          $products=  $this->db->select('t1.*,t2.productName,t2.productPrice,t2.productdescription,t3.businessName')
-            ->from('businessOrders as t1')
+            ->from('businessorders as t1')
             ->where($compare)
              ->join('businessproduct as t2', 't1.productId = t2.productId', 'LEFT')
              ->join('mstbusiness as t3', 't1.businessId = t3.businessId', 'LEFT')
@@ -426,7 +429,12 @@ class BusinessModel extends CI_Model
     }
     public function fetchImages($productId){
         $this->db->where("productId",$productId);
-        return $this->db->get("businessproductimages")->result_array();
+		$results =  $this->db->get("businessproductimages")->result_array();
+		
+		foreach ($results as &$result) {
+			$result['imageUrl'] = $this->getProfileImageUrl($result['imageUrl']);
+		}
+		return $results;
     }
     public function update($data,$table,$compare){
         $this->db->where($compare);
