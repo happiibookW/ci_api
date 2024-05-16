@@ -410,7 +410,7 @@ class BusinessModel extends CI_Model
             $finalData[$i]['productId']=$list['productId'];
             $finalData[$i]['businessId']=$list['businessId'];
             $finalData[$i]['userName']= $list['userName'];
-            $finalData[$i]['userProfileUrl']=$list['userProfileUrl'];
+            $finalData[$i]['userProfileUrl']=$list['profileImageUrl'];
             $finalData[$i]['userId']=$list['userId'];
             $finalData[$i]['orderCost']=$list['orderCost'];
             $finalData[$i]['shippingCost']=$list['shippingCost'];
