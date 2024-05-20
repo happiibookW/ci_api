@@ -57,7 +57,7 @@ class AddBusiness extends REST_Controller
                         echo $this->upload->display_errors();
                     } else {
                         $data       = $this->upload->data();
-                        $logoImageUrl = "public/business/profile/" . $data['file_name'];
+                        $logoImageUrl = "business/profile/" . $data['file_name'];
                     }
                 }
                 if (isset($_FILES['featureImageUrl']['name']) && !empty($_FILES['featureImageUrl']['name'])) {
@@ -65,7 +65,7 @@ class AddBusiness extends REST_Controller
                         echo $this->upload->display_errors();
                     } else {
                         $data       = $this->upload->data();
-                        $featureImageUrl = "public/business/profile/" . $data['file_name'];
+                        $featureImageUrl = "business/profile/" . $data['file_name'];
                     }
                 }
 				
