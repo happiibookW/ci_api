@@ -37,7 +37,7 @@ class AddBusiness extends REST_Controller
             $city=$this->input->post('city');
             if ($businessName != "" && $ownerName != "" && $vatNumber != "" && $password!="") {
                 $upload = array(
-                    "upload_path" => "public/business/",
+                    "upload_path" => "public/business/profile",
                     "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List",
                     "max_size" => 100000,
                     "encrypt_name" => TRUE
@@ -51,14 +51,14 @@ class AddBusiness extends REST_Controller
                         $logoImageUrl = "business/" . $data['file_name'];
                     }
                 }
-                // if (isset($_FILES['featureImageUrl']['name']) && !empty($_FILES['featureImageUrl']['name'])) {
-                //     if (!$this->upload->do_upload('featureImageUrl')) {
-                //         echo $this->upload->display_errors();
-                //     } else {
-                //         $data       = $this->upload->data();
-                //         $featureImageUrl = "business/" . $data['file_name'];
-                //     }
-                // }
+                if (isset($_FILES['featureImageUrl']['name']) && !empty($_FILES['featureImageUrl']['name'])) {
+                    if (!$this->upload->do_upload('featureImageUrl')) {
+                        echo $this->upload->display_errors();
+                    } else {
+                        $data       = $this->upload->data();
+                        $featureImageUrl = "public/business/profile" . $data['file_name'];
+                    }
+                }
                 $verificationCode = rand(1000, 9999);
                 $businessData = array(
                     "businessId" => $businessId,
@@ -76,7 +76,7 @@ class AddBusiness extends REST_Controller
                     "isAlwaysOpen" => $isAlwaysOpen,
                     "categoryId" => $categoryId,
                     "logoImageUrl" => $logoImageUrl,
-                    // "featureImageUrl" => $featureImageUrl,
+                    "featureImageUrl" => $featureImageUrl,
                 );
                 $authorizationData=array(
                     "userId"=>$businessId,
