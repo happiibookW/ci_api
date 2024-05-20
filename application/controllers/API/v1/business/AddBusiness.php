@@ -16,6 +16,7 @@ class AddBusiness extends REST_Controller
 
     public function index_post()
     {
+		
 
         try {
 
@@ -35,20 +36,28 @@ class AddBusiness extends REST_Controller
             $businessType=$this->input->post('businessType');
             $country=$this->input->post('country');
             $city=$this->input->post('city');
+			
             if ($businessName != "" && $ownerName != "" && $vatNumber != "" && $password!="") {
+				$upload_path = FCPATH . 'public/business/profile/';
+				
+				if (!is_dir($upload_path)) {
+					// Create the directory if it doesn't exist
+					mkdir($upload_path, 0777, TRUE);
+				}
                 $upload = array(
                     "upload_path" => "public/business/profile",
                     "allowed_types" => "jpg|png|jpeg|PNG|JPG|JPEG|PDF|DOC|CSV|Uint8List",
                     "max_size" => 100000,
                     "encrypt_name" => TRUE
                 );
+				
                 $this->load->library('upload', $upload);
                 if (isset($_FILES['logoImageUrl']['name']) && !empty($_FILES['logoImageUrl']['name'])) {
                     if (!$this->upload->do_upload('logoImageUrl')) {
                         echo $this->upload->display_errors();
                     } else {
                         $data       = $this->upload->data();
-                        $logoImageUrl = "business/" . $data['file_name'];
+                        $logoImageUrl = "public/business/profile/" . $data['file_name'];
                     }
                 }
                 if (isset($_FILES['featureImageUrl']['name']) && !empty($_FILES['featureImageUrl']['name'])) {
@@ -56,9 +65,10 @@ class AddBusiness extends REST_Controller
                         echo $this->upload->display_errors();
                     } else {
                         $data       = $this->upload->data();
-                        $featureImageUrl = "public/business/profile" . $data['file_name'];
+                        $featureImageUrl = "public/business/profile/" . $data['file_name'];
                     }
                 }
+				
                 $verificationCode = rand(1000, 9999);
                 $businessData = array(
                     "businessId" => $businessId,
@@ -125,6 +135,7 @@ class AddBusiness extends REST_Controller
                 ), REST_Controller::HTTP_OK);
             }
         } catch (Exception $e) {
+			
             echo 'Message: ' . $e->getMessage();
         }
     }
