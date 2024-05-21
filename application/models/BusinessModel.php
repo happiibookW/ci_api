@@ -65,8 +65,7 @@ class BusinessModel extends CI_Model
             $finalData['email']=$users['email'];
             $finalData['ownerName']=$users['ownerName'];
             $finalData['featureImageUrl']=$this->getProfileImageUrl($users['featureImageUrl']);
-            $finalData['logoImageUrl']=$this->getProfileImageUrl($users['logoImageUrl']);($this->checkFileInLaravel($users['logoImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['logoImageUrl'] : 'https://hapiverse.com/ci_api/public/'.$users['logoImageUrl'];
-            $finalData['isAlwaysOpen']=$users['isAlwaysOpen'];
+            $finalData['logoImageUrl']=$this->getProfileImageUrl($users['logoImageUrl']);
             $finalData['city']=$users['city'];
             $finalData['businessContact']=$users['businessContact'];
             $finalData['country']=$users['country'];
@@ -109,11 +108,16 @@ class BusinessModel extends CI_Model
     }
 	public function checkFileInLaravel($image)
 	{
-		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
+		// $laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
+		$laravelEndpoint = 'http://127.0.0.1:8000/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
-		if ($response === '{"status":"exists"}') {
+		
+		$response = trim($response);
+    	$responseData = json_decode($response, true);
+
+		if (isset($responseData['status']) && $responseData['status'] === 'exists') {
 			return true;
 		} else {
 			return false;
@@ -391,7 +395,7 @@ class BusinessModel extends CI_Model
   }
   	public function getProfileImageUrl($imageUrl)
   	{
-		return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : 'https://hapiverse.com/ci_api/public/' . $imageUrl;
+		 return ($this->checkFileInLaravel($imageUrl)) ? 'https://hapiverse.com/hapiverse/public/' . $imageUrl : 'https://hapiverse.com/ci_api/public/' . $imageUrl;
 	}
   /// fetch data against
        public function fetchOrder($compare,$table){
