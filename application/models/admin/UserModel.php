@@ -130,7 +130,7 @@ class UserModel extends CI_Model
             $finalData['email'] = $users['email'];
             $finalData['DOB'] = $users['DOB'];
             $finalData['martialStatus'] = $users['martialStatus'];
-            $finalData['profileImageUrl'] = 'https://hapiverse.com/hapiverse/public'.$users['profileImageUrl'];
+            $finalData['profileImageUrl'] = ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['profileImageUrl'] : 'https://hapiverse.com/ci_api/public/'.$users['profileImageUrl'];
             $finalData['gender'] = $users['gender'];
             $finalData['city'] = $users['city'];
             $finalData['postCode'] = $users['postCode'];
@@ -172,6 +172,23 @@ class UserModel extends CI_Model
         }
         return  $finalData;
     }
+
+	public function checkFileInLaravel($image) {
+
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
+		$filePath = $image;
+		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
+		$response = file_get_contents($url);
+		$response = trim($response);
+    	$responseData = json_decode($response, true);
+
+		if (isset($responseData['status']) && $responseData['status'] === 'exists') {
+			return true;
+		} else {
+			return false;
+		}
+    }
+
     public function profileImageAvatar($userId)
     {
         $this->db->where("userId", $userId);

@@ -99,7 +99,7 @@ class UserModel extends CI_Model
             $finalData['email']=$users['email'];
             $finalData['DOB']=$users['DOB'];
             $finalData['martialStatus']=$users['martialStatus'];
-            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['profileImageUrl'] : site_url('public/'.$users['profileImageUrl']);
+            $finalData['profileImageUrl']= ($this->checkFileInLaravel($users['profileImageUrl'])) ? 'https://hapiverse.com/hapiverse/public/'.$users['profileImageUrl'] : 'https://hapiverse.com/ci_api/public/'.$users['profileImageUrl'];
             $finalData['gender']=$users['gender'];
             $finalData['city']=$users['city'];
             $finalData['state']=$users['state'];
@@ -166,7 +166,10 @@ class UserModel extends CI_Model
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
-		if ($response === '{"status":"exists"}') {
+		$response = trim($response);
+    	$responseData = json_decode($response, true);
+
+		if (isset($responseData['status']) && $responseData['status'] === 'exists') {
 			return true;
 		} else {
 			return false;
