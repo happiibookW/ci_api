@@ -108,8 +108,7 @@ class BusinessModel extends CI_Model
     }
 	public function checkFileInLaravel($image)
 	{
-		// $laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
-		$laravelEndpoint = 'http://127.0.0.1:8000/check-file';
+		$laravelEndpoint = 'https://hapiverse.com/hapiverse/public/check-file';
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
