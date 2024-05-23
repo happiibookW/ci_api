@@ -157,7 +157,7 @@ class PostModel extends CI_Model
              return $result;
         
      }
-     public function fetchPostFeed($compare)
+     public function fetchPostFeed($compare,$limit ,$offset)
 	 {
 		$userId = $compare['userId'];
 
@@ -204,6 +204,7 @@ class PostModel extends CI_Model
 		}
 
 		$query->order_by('posted_date', 'DESC');
+		$query->limit($limit, $offset);
 		$result = $query->get()->result_array();
 
 

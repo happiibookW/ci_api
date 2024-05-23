@@ -31,11 +31,13 @@ class FetchFeedPost extends REST_Controller
 
         try {
 			$userId=$this->input->post("userId");
+			$offset=$this->input->post("startFrom");
+			$limit=$this->input->post("limit");
 			if($userId!=""){
 				$compare=array(
 					"userId"=>$userId,
 				);
-			$postdata = $this->PostModel->fetchPostFeed($compare);
+			$postdata = $this->PostModel->fetchPostFeed($compare,$limit,$offset);
 			if ($postdata != "" && !empty($postdata)) {
 				$this->response(array(
 					"status" => DATA_AVAILABLE,
