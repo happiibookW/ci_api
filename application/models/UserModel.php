@@ -166,6 +166,7 @@ class UserModel extends CI_Model
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
+		
 		$response = trim($response);
     	$responseData = json_decode($response, true);
 

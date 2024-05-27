@@ -35,7 +35,11 @@ class NotificationModel extends CI_Model
 		$filePath = $image;
 		$url = $laravelEndpoint . '?file=' . urlencode($filePath);
 		$response = file_get_contents($url);
-		if ($response === '{"status":"exists"}') {
+		
+		$response = trim($response);
+    	$responseData = json_decode($response, true);
+
+		if (isset($responseData['status']) && $responseData['status'] === 'exists') {
 			return true;
 		} else {
 			return false;
